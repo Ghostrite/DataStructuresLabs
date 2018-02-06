@@ -53,11 +53,9 @@ def main():
         def getTime(self):
             return self.time
 
-    Patients  = int(input("How many Patients?\n"))
-    while Patients >59:
-        print("Please print another number less than 60 \n")
-        Patients = int(input("How many Patients?\n"))
-    eRinput = int(input("How many exam rooms?\n"))
+    Patients  = int(input("How many Patients?\nPatients:"))
+    eRinput = int(input("How many exam rooms?\nExam rooms:"))
+    
     p1=[]
     def nameGen():
         Patientlist = ["Stubby","Mister Miyagi","Frodo","Ozzy","Garry","Werry"\
@@ -122,11 +120,12 @@ def main():
     while mainList !=[]:
         if not mainList:
             break
+        if switcher ==16 and t1>16:
+            break
         if t != 0:
             if t==TimeforNext[0]:
                 TimeforNext.remove(TimeforNext[0])
                 examRooms = examRooms - (1*mainFrequency.pop(0))
-            
         for i in mainList:
             if i.triage > 50 and examRooms <eRinput and i.location!="Home":
                 i.moveTo(eR)
@@ -158,17 +157,22 @@ def main():
                 x= Physician6
             i.moveTo(H)
             timeTook = int(x.seePatient())
-            i.time = timeTook
+            if t1==0:
+                i.time = t1+1
+            else:
+                i.time=t1
+                
             print("Patient:",i.name,",is being treated by:",x.name,"for:",timeTook\
                   ,"minutes")
+            switcher=0
             if t1 >= 15:
-                timeTook = t1 + timeTook
+                timeTook = t1 +timeTook
             lastList=TimeforNext
             FrequencyHelper.append(timeTook)
             TimeforNext.append(timeTook)
-            i.time = timeTook
+            
             k=k+1
-        for i in range(4):
+        for i in range(40):
             for i in examRoomList:
                 if i.time > 0:
                     examRoomList.remove(i)
@@ -191,17 +195,17 @@ def main():
             mainFrequency.append(Frequency.count(i))
         FrequencyHelper=[]
         print("Time until next exam rooms:",TimeforNext)    
-        
         t=t+1
         t1=t1+1
         print("\nTime passed:",t1,"minutes\n")
+        switcher=switcher+1
         time.sleep(0.3)
     for i in FinalList:
         print(i.name,"waited",i.time,"minutes")
         j = i.time + j
         counter1=1
     print("Average wait time with",eRinput,"exam rooms and",Patients\
-          ,"patients:\n",j/Patients)
+          ,"patients:\n",j/Patients,"minutes")
         
         
         
